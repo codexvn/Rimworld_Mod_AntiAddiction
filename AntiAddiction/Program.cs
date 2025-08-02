@@ -157,7 +157,7 @@ namespace AntiAddiction
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref SleepTimeMod.SleepStartHour, ModConstant.ModSettingKeySleepStartHour, 20);
+            Scribe_Values.Look(ref SleepTimeMod.SleepStartHour, ModConstant.ModSettingKeySleepStartHour, 23);
         }
     }
 }
