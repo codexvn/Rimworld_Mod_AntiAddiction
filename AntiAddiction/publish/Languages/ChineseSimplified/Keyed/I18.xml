@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <AntiAddiction.TimeToSleep>该睡觉了朋友</AntiAddiction.TimeToSleep>
+    <AntiAddiction.NotAllowedToPlay>当前时段禁止游戏</AntiAddiction.NotAllowedToPlay>
+    <AntiAddiction.SleepTimeSetting>休息时间设置</AntiAddiction.SleepTimeSetting>
+    <AntiAddiction.SleepTimeStartSetting>开始休息时间</AntiAddiction.SleepTimeStartSetting>
+    <AntiAddiction.SettingModifyNotAllowed>游戏内不可编辑,存档保存后不可修改</AntiAddiction.SettingModifyNotAllowed>
+    <AntiAddiction.SettingModifyNotAllowedTooltip>已锁定</AntiAddiction.SettingModifyNotAllowedTooltip>
+    
+</LanguageData>

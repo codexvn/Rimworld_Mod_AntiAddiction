@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+    <!-- 核心提示 -->
+    <AntiAddiction.TimeToSleep>It's time to sleep</AntiAddiction.TimeToSleep>
+    <AntiAddiction.NotAllowedToPlay>Game access restricted</AntiAddiction.NotAllowedToPlay>
+    <AntiAddiction.SleepTimeSetting>Sleep Time Settings</AntiAddiction.SleepTimeSetting>
+    <AntiAddiction.SleepTimeStartSetting>Start Sleep Time</AntiAddiction.SleepTimeStartSetting>
+    <AntiAddiction.SettingModifyNotAllowed>Settings cannot be modified in-game, and cannot be changed after saving the game</AntiAddiction.SettingModifyNotAllowed>
+    <AntiAddiction.SettingModifyNotAllowedTooltip>Locked</AntiAddiction.SettingModifyNotAllowedTooltip>
+</LanguageData>
