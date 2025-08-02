@@ -64,6 +64,7 @@ namespace AntiAddiction
             if (CheckTime() && DateTime.Now.Millisecond >= _nextNotificationMillisecond)
             {
                 //获取当前显示时间的时间戳
+                Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                 Find.TickManager.Pause(); // 暂停游戏
                 Find.WindowStack.Add(new Dialog_MessageBox(I18Constant.TimeToSleep.Translate(), null, SaveGameAction));
                 UpdateNextNotificationMillisecond();
