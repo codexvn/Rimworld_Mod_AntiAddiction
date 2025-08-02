@@ -6,6 +6,7 @@
         public static readonly string TimeToSleep = "AntiAddiction.TimeToSleep";
         //禁止游玩
         public static readonly string NotAllowedToPlay = "AntiAddiction.NotAllowedToPlay";
+        public static readonly string GetTimeError = "AntiAddiction.GetTimeError";
         //休息时间设置
         public static readonly string SleepTimeSetting = "AntiAddiction.SleepTimeSetting";
         public static readonly string SleepTimeStartSetting = "AntiAddiction.SleepTimeStartSetting";

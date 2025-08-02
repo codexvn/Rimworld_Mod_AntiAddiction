@@ -5,6 +5,7 @@
     <AntiAddiction.TimeToSleep>It's time to sleep</AntiAddiction.TimeToSleep>
     <AntiAddiction.NotAllowedToPlay>Game access restricted</AntiAddiction.NotAllowedToPlay>
     <AntiAddiction.SleepTimeSetting>Sleep Time Settings</AntiAddiction.SleepTimeSetting>
+    <AntiAddiction.GetTimeError>Time retrieval error, current time: {0}, last read time: {1}</AntiAddiction.GetTimeError>
     <AntiAddiction.SleepTimeStartSetting>Start Sleep Time</AntiAddiction.SleepTimeStartSetting>
     <AntiAddiction.SettingModifyNotAllowed>Settings cannot be modified in-game, and cannot be changed after saving the game</AntiAddiction.SettingModifyNotAllowed>
     <AntiAddiction.SettingModifyNotAllowedTooltip>Locked</AntiAddiction.SettingModifyNotAllowedTooltip>

@@ -18,14 +18,15 @@ namespace AntiAddiction
 
     public class AntiAddictionComp : GameComponent
     {
-        private int _nextNotificationMillisecond = 0;
+        private long _nextNotificationMillisecond = 0;
+        private long _readNow;
         private int _sleepStartHour = SleepTimeMod.SleepStartHour;
 
         private static readonly Action SaveGameAction = () =>
         {
             if (Current.ProgramState == ProgramState.Playing)
             {
-                //异步打开保存界面
+                //打开保存界面
                 Find.WindowStack.Add(new Dialog_SaveFileList_Save());
             }
         };
@@ -44,6 +45,7 @@ namespace AntiAddiction
         {
             base.ExposeData();
             Scribe_Values.Look(ref _sleepStartHour, ModConstant.ModSettingKeySleepStartHour, SleepTimeMod.SleepStartHour, true);
+            Scribe_Values.Look(ref _readNow, ModConstant.ModSettingKeyRealNow,  DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), true);
         }
 
         public bool CheckTime()
@@ -61,9 +63,24 @@ namespace AntiAddiction
 
         public override void GameComponentTick()
         {
-            if (CheckTime() && DateTime.Now.Millisecond >= _nextNotificationMillisecond)
+            // 防止回溯
+            var nowMillisecond = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            if (_readNow > nowMillisecond)
+            {
+                var taggedString = I18Constant.GetTimeError.Translate(
+                    DateTimeOffset.FromUnixTimeMilliseconds(nowMillisecond).LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                    DateTimeOffset.FromUnixTimeMilliseconds(_readNow).LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                );
+                Log.Error(taggedString);
+                Find.WindowStack.Add(new Dialog_MessageBox(taggedString));
+            }else
+            {
+                _readNow = nowMillisecond;
+            }
+            if (CheckTime() && nowMillisecond >= _nextNotificationMillisecond)
             {
                 //获取当前显示时间的时间戳
+                Find.TickManager.prePauseTimeSpeed = TimeSpeed.Normal;
                 Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                 Find.TickManager.Pause(); // 暂停游戏
                 Find.WindowStack.Add(new Dialog_MessageBox(I18Constant.TimeToSleep.Translate(), null, SaveGameAction));
@@ -74,7 +91,7 @@ namespace AntiAddiction
         private void UpdateNextNotificationMillisecond()
         {
             //一分钟后再次提示
-            int currentMillisecond = DateTime.Now.Millisecond;
+            long currentMillisecond = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             _nextNotificationMillisecond = currentMillisecond + 60000; // 60000 毫秒 = 1 分钟
         }
     }
@@ -85,9 +102,11 @@ namespace AntiAddiction
         static bool Prefix(ref TimeSpeed value)
         {
             var antiAddictionComp = Current.Game.GetComponent<AntiAddictionComp>();
-            if (antiAddictionComp.CheckTime())
+            if (antiAddictionComp.CheckTime() && value != TimeSpeed.Normal)
             {
-                Find.TickManager.Pause();
+                Find.TickManager.prePauseTimeSpeed = TimeSpeed.Normal;
+                Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+                Find.TickManager.Pause(); // 暂停游戏
                 Messages.Message(I18Constant.NotAllowedToPlay.Translate(), MessageTypeDefOf.CautionInput);
                 return false; // 阻止原始 setter 执行
             }
